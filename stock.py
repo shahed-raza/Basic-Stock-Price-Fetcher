@@ -160,6 +160,7 @@ def get_quantity(stock):
             except ValueError:
                 pass
         except EOFError:
+            print()
             pass
         except KeyboardInterrupt:
             sys.exit("Exiting!")
