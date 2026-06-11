@@ -35,17 +35,14 @@ def fetch_stock_price(stock):
 def fetch_prices_of_all_stocks(stocks):
     prices = {}
     for stock in stocks:
-        try:
-            price = fetch_stock_price(stock)
-            prices[stock] = price
-        except KeyError:
-            print(f"{stock} not found")
+        price = fetch_stock_price(stock)
+        prices[stock] = price
     return prices
 
 
 def is_save_to_file():
     try:
-        user_response = input("Do you want to save stock symbol, quantity, and corresponding price in a csv file?(y/n): ")
+        user_response = input("Do you want to save stock symbol, quantity, and corresponding price in a csv file? (y/n): ")
         if len(user_response) >= 1 and user_response[0].lower() == 'y':
             return True
     except EOFError:
@@ -107,8 +104,6 @@ def get_stocks_and_quantities():
     while True:
         try:
             stock = get_stock()
-            # stock_info = get_stock_info()
-            # stock = stock_info["stock_symbol"]
         except EOFError:
             print("\n")
             break
@@ -119,7 +114,6 @@ def get_stocks_and_quantities():
     return stocks
 
 
-# def get_stock_info():
 def get_stock():
     while True:
         try:
@@ -130,7 +124,7 @@ def get_stock():
             sys.exit("Exiting!")
 
         if stock != "":
-
+            stock = stock.upper()
             # TODO:
             # fetch the stock
             # do the error check
@@ -139,14 +133,11 @@ def get_stock():
             # returnt the dict ==> {symbol: stock, unit_price: price}
 
             # temporary fix
-            # try:
-            #     price = fetch_stock_price(stock)
-            #     return {"stock_symbol": stock.upper(), "unit_price": price}
-            # except KeyError:
-            #     print(f"{stock} not found!\n")
-
-            return stock.upper()
-
+            try:
+                fetch_stock_price(stock)
+                return stock # doesn't raise keyerror exception ==> stock exists
+            except KeyError:
+                print(f"{stock} not found!\n")
 
 
 def get_quantity(stock):
