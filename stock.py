@@ -4,12 +4,17 @@ import tabulate
 
 
 def main():
+    # stock_symbol, unit_price, quantity of each stocks in one dict in-case of real-api usage
     stocks_quantity = get_stocks_and_quantities()
+    # wouldn't need in-case of real-api usage
     prices = fetch_prices_of_all_stocks(stocks_quantity.keys())
+    # way of accessing of unit price, quantity changes in-case of real-api usage
     total_investement = sum(stocks_quantity[stock] * prices[stock] for stock in stocks_quantity)
     if (is_save_to_file()):
         filename = get_csv_filename()
+        # all stock info passed as single dict
         save_results(stocks_quantity, prices, filename)
+    # all stock info passed as single dict
     pretty_print(stocks_quantity, prices)
     print(f"\nTotal Investment: {total_investement}")
 
@@ -32,6 +37,7 @@ def fetch_stock_price(stock):
         raise KeyError
 
 
+# not needed in-case of real-api usage
 def fetch_prices_of_all_stocks(stocks):
     prices = {}
     for stock in stocks:
@@ -75,6 +81,7 @@ def is_csv_file(filename):
     return False
 
 
+# symbol, unit price, quantity of all stocks passed as a single dict in-case of real-api usage
 def save_results(stocks_quantity, prices, filename):
     with open(filename, "w") as file:
         fieldnames = ["stock_symbol", "unit_price", "quantity", "investment"]
@@ -88,6 +95,7 @@ def save_results(stocks_quantity, prices, filename):
     print(f"Saved! results to {filename}\n")
 
 
+# symbol, unit price, quantity of all stocks passed as a single dict in-case of real-api usage
 def pretty_print(stocks_quantity, prices):
     header = ["Stock Symbol", "Unit Price", "Quantity", "Investment"]
     rows = []
@@ -98,6 +106,7 @@ def pretty_print(stocks_quantity, prices):
     print(table)
 
 
+# returns the single dict with symbols, unit price, quantity of all the user-inputted stocks in-case of real-api usage
 def get_stocks_and_quantities():
     print()
     stocks = {}
@@ -114,6 +123,7 @@ def get_stocks_and_quantities():
     return stocks
 
 
+# returns the stock symbol, unit price as a dict fetched from the real-api
 def get_stock():
     while True:
         try:
