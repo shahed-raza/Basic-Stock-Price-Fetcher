@@ -7,6 +7,8 @@ from helpers.save_to_csv import save_results
 from helpers.terminal_output import print_table, to_usd
 
 
+# load the file which has the api key as shown in .env.example
+# it need to be named .env, but be sure to change .env to the file with your api-key
 load_dotenv(".env")
 
 apikey = os.getenv("STOCK_API_KEY")
