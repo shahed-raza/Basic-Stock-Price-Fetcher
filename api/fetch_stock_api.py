@@ -2,6 +2,7 @@ import requests
 import sys
 
 from helpers.user_input import get_stock, get_quantity
+from helpers.terminal_output import to_usd
 
 
 def get_all_stocks_info(base_url, apikey):
@@ -14,17 +15,25 @@ def get_all_stocks_info(base_url, apikey):
             print("\n")
             return stocks
 
-        if not stock_symbol_lookup(base_url, apikey, stock):
+        if (stock not in stocks) and not stock_symbol_lookup(base_url, apikey, stock):
             print(f"{stock} not found in US exchanges NYSE, Nasdaq\n")
-            continue
 
         try:
             price = fetch_stock_price(base_url, apikey, stock)
         except Exception as e:
             sys.exit(f"Unknown Exception:\n{type(e)}\n{e}")
 
+        print(f"Price of {stock} is {to_usd(price)}")
+
         quantity = get_quantity(stock)
-        stocks[stock] = {"price": price, "quantity": quantity}
+
+        if stock not in stocks:
+            stocks[stock] = {"last_price": price, "quantity": quantity, "investment": price * quantity}
+        else:
+            stocks[stock]["last_price"] = price
+            stocks[stock]["quantity"] += quantity
+            stocks[stock]["investment"] += price * quantity
+
         print("\n")
 
 
