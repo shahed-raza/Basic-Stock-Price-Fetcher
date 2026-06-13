@@ -17,6 +17,7 @@ def get_all_stocks_info(base_url, apikey):
 
         if (stock not in stocks) and not stock_symbol_lookup(base_url, apikey, stock):
             print(f"{stock} not found in US exchanges NYSE, Nasdaq\n")
+            continue
 
         try:
             price = fetch_stock_price(base_url, apikey, stock)
