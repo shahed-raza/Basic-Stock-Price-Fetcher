@@ -8,14 +8,14 @@ def save_results(stocks_info):
     filename = get_csv_filename()
 
     with open(filename, "w") as file:
-        fieldnames = ["stock_symbol", "price", "quantity", "investment"]
+        fieldnames = ["stock_symbol", "last_price", "quantity", "investment"]
         dict_writer = csv.DictWriter(file, fieldnames)
         dict_writer.writeheader()
         for stock in stocks_info.keys():
-            price = stocks_info[stock]["price"]
+            price = stocks_info[stock]["last_price"]
             quantity = stocks_info[stock]["quantity"]
-            investment = price * quantity
-            row = {"stock_symbol": stock, "price": to_usd(price), "quantity": quantity, "investment": to_usd(investment)}
+            investment = stocks_info[stock]["investment"]
+            row = {fieldnames[0]: stock, fieldnames[1]: to_usd(price), fieldnames[2]: quantity, fieldnames[3]: to_usd(investment)}
             dict_writer.writerow(row)
 
     print()
