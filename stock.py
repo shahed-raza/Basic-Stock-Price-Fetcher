@@ -20,7 +20,7 @@ def main():
 
     stocks_info = get_all_stocks_info(base_url, apikey)
 
-    total_investment = sum(stocks_info[stock]["price"] * stocks_info[stock]["quantity"] for stock in stocks_info.keys())
+    total_investment = sum(stocks_info[stock]["investment"] for stock in stocks_info.keys())
 
     if (does_user_wants_to_save()):
         save_results(stocks_info)
