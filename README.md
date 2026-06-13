@@ -28,6 +28,4 @@ green for success, red for errors
 
 ## What's missing?
 
-* If an already entered stock symbol is entered again, then previously entered
-quantity is overwritten, resulting in a loss of previously bought stock
 * Interactivity is missing, it lacks TUI
